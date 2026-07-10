@@ -76,14 +76,7 @@ main {
   letter-spacing: 0.03em;
 }
 
-#map {
-  height: 480px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  margin-bottom: 24px;
-}
-
-.elevation-section, .waypoints-section, .notes-section, .stages-section, .cols-section {
+.komoot-section, .waypoints-section, .notes-section, .stages-section, .cols-section {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -91,10 +84,21 @@ main {
   margin-bottom: 20px;
 }
 
-.elevation-section h2, .waypoints-section h2, .notes-section h2, .stages-section h2, .cols-section h2 {
+.komoot-section h2, .waypoints-section h2, .notes-section h2, .stages-section h2, .cols-section h2 {
   margin-top: 0;
   font-size: 1.1rem;
   color: var(--alpine-blue);
+}
+
+.komoot-embed {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.komoot-embed iframe {
+  display: block;
+  width: 100%;
+  border: none;
 }
 
 .stage {
@@ -164,11 +168,6 @@ main {
   color: #94a3b8;
 }
 
-.chart-wrap {
-  height: 220px;
-  position: relative;
-}
-
 .waypoints-list {
   list-style: none;
   padding: 0;
@@ -210,6 +209,6 @@ footer {
 }
 
 @media (max-width: 600px) {
-  #map { height: 340px; }
+  .komoot-embed iframe { height: 560px; }
   .topbar h1 { font-size: 1.4rem; }
 }

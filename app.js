@@ -1,5 +1,5 @@
-// L'Échappée M&Ms — chargement et affichage du parcours GPX
-// Aucune dépendance de build : Leaflet + Chart.js chargés via CDN dans index.html
+// L'Échappée M&Ms — stats et points d'intérêt calculés à partir du GPX
+// La carte + le profil altimétrique sont désormais gérés par l'embed Komoot (voir index.html)
 
 const GPX_URL = "data/route.gpx";
 
@@ -13,16 +13,6 @@ function haversineKm(lat1, lon1, lat2, lon2) {
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
     Math.sin(dLon / 2) ** 2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-}
-
-// Décime un tableau en gardant environ `target` points (premier/dernier conservés)
-function decimate(arr, target) {
-  if (arr.length <= target) return arr;
-  const step = arr.length / target;
-  const out = [];
-  for (let i = 0; i < arr.length; i += step) out.push(arr[Math.floor(i)]);
-  if (out[out.length - 1] !== arr[arr.length - 1]) out.push(arr[arr.length - 1]);
-  return out;
 }
 
 async function loadGpx(url) {
@@ -91,75 +81,20 @@ async function init() {
   document.getElementById("stat-maxalt").textContent = stats.maxAlt.toLocaleString("fr-FR");
   document.getElementById("last-updated").textContent = new Date().toLocaleDateString("fr-FR");
 
-  // --- Carte Leaflet ---
-  const map = L.map("map");
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
-    maxZoom: 18,
-  }).addTo(map);
-
-  const latlngs = trkpts.map((p) => [p.lat, p.lon]);
-  const line = L.polyline(latlngs, { color: "#ee6c4d", weight: 4 }).addTo(map);
-  map.fitBounds(line.getBounds(), { padding: [20, 20] });
-
   const waypointsList = document.getElementById("waypoints-list");
   wpts.forEach((wp) => {
-    L.marker([wp.lat, wp.lon]).addTo(map).bindPopup(`<strong>${wp.name}</strong>`);
     const distAtWp = findNearestWaypointDistance(wp, trkpts, cumDist);
     const li = document.createElement("li");
     li.innerHTML = `<span class="wp-name">${wp.name}</span><span class="wp-dist">km ${distAtWp.toFixed(0)}</span>`;
     waypointsList.appendChild(li);
   });
-
-  // Curseur synchronisé carte <-> graphique
-  const cursorMarker = L.circleMarker([trkpts[0].lat, trkpts[0].lon], {
-    radius: 7, color: "#1b4965", fillColor: "#62b6cb", fillOpacity: 1, weight: 2,
-  }).addTo(map);
-
-  // --- Graphique altimétrique (Chart.js) ---
-  // On décime pour la lisibilité/perf, en gardant une correspondance d'indices vers trkpts
-  const CHART_POINTS = 600;
-  const idxs = decimate(trkpts.map((_, i) => i), CHART_POINTS);
-  const chartLabels = idxs.map((i) => cumDist[i]);
-  const chartData = idxs.map((i) => trkpts[i].ele);
-
-  const ctx = document.getElementById("elevation-chart").getContext("2d");
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: chartLabels.map((d) => d.toFixed(1)),
-      datasets: [{
-        label: "Altitude (m)",
-        data: chartData,
-        borderColor: "#1b4965",
-        backgroundColor: "rgba(98,182,203,0.3)",
-        fill: true,
-        pointRadius: 0,
-        tension: 0.15,
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { title: { display: true, text: "Distance (km)" }, ticks: { maxTicksLimit: 10 } },
-        y: { title: { display: true, text: "Altitude (m)" } },
-      },
-      onHover: (evt, elements) => {
-        if (!elements.length) return;
-        const chartIdx = elements[0].index;
-        const trkIdx = idxs[chartIdx];
-        const pt = trkpts[trkIdx];
-        cursorMarker.setLatLng([pt.lat, pt.lon]);
-      },
-    },
-  });
 }
 
 init().catch((err) => {
   console.error("Erreur de chargement du parcours:", err);
-  document.getElementById("map").innerHTML =
-    '<p style="padding:20px;color:#b91c1c">Impossible de charger la trace GPX. Vérifie que data/route.gpx existe.</p>';
+  const wpSection = document.getElementById("waypoints-list");
+  if (wpSection) {
+    wpSection.innerHTML =
+      '<li style="color:#b91c1c">Impossible de charger la trace GPX. Vérifie que data/route.gpx existe.</li>';
+  }
 });

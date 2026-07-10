@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>L'Échappée M&amp;Ms</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -36,12 +35,10 @@
     </div>
   </section>
 
-  <section id="map"></section>
-
-  <section class="elevation-section">
-    <h2>Profil altimétrique</h2>
-    <div class="chart-wrap">
-      <canvas id="elevation-chart"></canvas>
+  <section class="komoot-section">
+    <h2>Carte &amp; profil altimétrique</h2>
+    <div class="komoot-embed">
+      <iframe src="https://www.komoot.com/collection/4511999/embed?share_token=aB4RDaYRg6PaCIUQCPLcaPG6WO6isiSG0mceril1Rxf38CO8GS" width="100%" height="800" frameborder="0" scrolling="no" loading="lazy"></iframe>
     </div>
   </section>
 
@@ -173,8 +170,6 @@
   <p>Trace GPX — mise à jour le <span id="last-updated"></span></p>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
