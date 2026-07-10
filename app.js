@@ -1,7 +1,12 @@
-// L'Échappée M&Ms — stats et points d'intérêt calculés à partir du GPX
-// La carte + le profil altimétrique sont désormais gérés par l'embed Komoot (voir index.html)
+// L'Échappée M&Ms — stats, points d'intérêt et profil altimétrique d'ensemble
+// La carte et le profil interactif par étape sont gérés par les embeds Komoot (voir index.html) ;
+// le graphique ci-dessous est une vue d'ensemble maison, colorée par jour, que Komoot ne propose pas.
 
 const GPX_URL = "data/route.gpx";
+
+// Bornes des 4 jours (km cumulés) et couleur associée à chacun
+const DAY_BOUNDS = [0, 91.7, 210.0, 384.0, 513.6];
+const DAY_COLORS = ["#1b4965", "#ee6c4d", "#b91c1c", "#2a9d8f"];
 
 // Distance haversine en km entre deux points lat/lon
 function haversineKm(lat1, lon1, lat2, lon2) {
@@ -13,6 +18,23 @@ function haversineKm(lat1, lon1, lat2, lon2) {
     Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
     Math.sin(dLon / 2) ** 2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Décime un tableau en gardant environ `target` points (premier/dernier conservés)
+function decimate(arr, target) {
+  if (arr.length <= target) return arr;
+  const step = arr.length / target;
+  const out = [];
+  for (let i = 0; i < arr.length; i += step) out.push(arr[Math.floor(i)]);
+  if (out[out.length - 1] !== arr[arr.length - 1]) out.push(arr[arr.length - 1]);
+  return out;
+}
+
+function dayIndexForKm(km) {
+  for (let i = 0; i < DAY_BOUNDS.length - 1; i++) {
+    if (km <= DAY_BOUNDS[i + 1]) return i;
+  }
+  return DAY_BOUNDS.length - 2;
 }
 
 async function loadGpx(url) {
@@ -69,6 +91,53 @@ function findNearestWaypointDistance(wpt, trkpts, cumDist) {
   return cumDist[bestIdx];
 }
 
+function renderOverviewChart(trkpts, cumDist) {
+  const canvas = document.getElementById("overview-chart");
+  if (!canvas || typeof Chart === "undefined") return;
+
+  const idxs = decimate(trkpts.map((_, i) => i), 700);
+  const points = idxs.map((i) => ({ x: cumDist[i], y: trkpts[i].ele }));
+
+  new Chart(canvas.getContext("2d"), {
+    type: "line",
+    data: {
+      datasets: [{
+        data: points,
+        borderWidth: 2.5,
+        pointRadius: 0,
+        fill: true,
+        tension: 0.1,
+        segment: {
+          borderColor: (ctx) => DAY_COLORS[dayIndexForKm((ctx.p0.parsed.x + ctx.p1.parsed.x) / 2)],
+          backgroundColor: (ctx) => DAY_COLORS[dayIndexForKm((ctx.p0.parsed.x + ctx.p1.parsed.x) / 2)] + "33",
+        },
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      parsing: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            title: (items) => `km ${items[0].parsed.x.toFixed(0)}`,
+            label: (item) => `${Math.round(item.parsed.y)} m`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          type: "linear",
+          title: { display: true, text: "Distance (km)" },
+          ticks: { maxTicksLimit: 10 },
+        },
+        y: { title: { display: true, text: "Altitude (m)" } },
+      },
+    },
+  });
+}
+
 async function init() {
   const { trkpts, wpts } = await loadGpx(GPX_URL);
   const cumDist = computeCumulativeDistance(trkpts);
@@ -88,6 +157,8 @@ async function init() {
     li.innerHTML = `<span class="wp-name">${wp.name}</span><span class="wp-dist">km ${distAtWp.toFixed(0)}</span>`;
     waypointsList.appendChild(li);
   });
+
+  renderOverviewChart(trkpts, cumDist);
 }
 
 init().catch((err) => {

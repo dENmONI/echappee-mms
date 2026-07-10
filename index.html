@@ -8,12 +8,32 @@
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
+<header class="hero" style="background-image: linear-gradient(180deg, rgba(15,30,40,0.35) 0%, rgba(15,30,40,0.55) 55%, rgba(15,30,40,0.85) 100%), url('photos/hero-alpine-pass.jpg');">
+  <div class="hero-inner">
+    <p class="hero-kicker">Team M&amp;Ms · Juillet</p>
     <h1>L'Échappée M&amp;Ms</h1>
-    <p class="subtitle">Galibier &amp; Madeleine — planification du parcours</p>
+    <p class="hero-subtitle">Galibier &amp; Madeleine — quatre jours dans les Alpes du Nord</p>
   </div>
 </header>
+
+<section class="intro-section">
+  <div class="intro-inner">
+    <div class="intro-text">
+      <p>
+        Quatre jours, plus de cinq cents kilomètres et douze cols pour traverser les Alpes du Nord
+        dans ce qu'elles ont de plus spectaculaire. Des alpages des Bauges aux lacets vertigineux du
+        Galibier, en passant par la Chartreuse, l'Oisans, la Maurienne et le Beaufortain,
+        <strong>L'Échappée M&amp;Ms</strong> est un voyage à vélo entre amis, pensé pour se dépasser
+        sans jamais perdre le plaisir de rouler ensemble.
+      </p>
+      <p>
+        Cette page rassemble tout ce qu'il faut pour préparer l'aventure : tracé complet, étapes au
+        jour le jour, profils altimétriques et infos pratiques.
+      </p>
+    </div>
+    <img class="intro-photo" src="photos/castle-avenue.jpg" alt="L'équipe M&amp;Ms en route" loading="lazy" />
+  </div>
+</section>
 
 <main>
   <section class="stats-bar" id="stats-bar">
@@ -33,6 +53,19 @@
       <span class="stat-value" id="stat-maxalt">–</span>
       <span class="stat-label">alt. max (m)</span>
     </div>
+  </section>
+
+  <section class="overview-section">
+    <h2>Vue d'ensemble du parcours</h2>
+    <div class="overview-chart-wrap">
+      <canvas id="overview-chart"></canvas>
+    </div>
+    <ul class="day-legend">
+      <li><span class="dot dot-j1"></span>J1 — La Clusaz → Chambéry</li>
+      <li><span class="dot dot-j2"></span>J2 — Chambéry → Bourg-d'Oisans</li>
+      <li><span class="dot dot-j3"></span>J3 — Bourg-d'Oisans → La Léchère</li>
+      <li><span class="dot dot-j4"></span>J4 — La Léchère → La Clusaz</li>
+    </ul>
   </section>
 
   <section class="komoot-section">
@@ -62,6 +95,10 @@
         Étape courte à dessein : elle absorbe la logistique du départ et laisse des réserves
         intactes pour les trois jours qui suivent.
       </p>
+      <div class="stage-photos">
+        <figure><img src="photos/forest-cyclist.jpg" alt="Dans les bois des Bauges" loading="lazy" /><figcaption>Dans les bois des Bauges</figcaption></figure>
+        <figure><img src="photos/countryside-road.jpg" alt="Sur les hauteurs, entre Bauges et Chambéry" loading="lazy" /><figcaption>Entre Bauges et Chambéry</figcaption></figure>
+      </div>
       <div class="komoot-embed stage-embed">
         <iframe src="https://www.komoot.com/tour/3098970135/embed?share_token=aRIUPEs9Iyx8VjSp6BJc5GIJ03ghyeoo3E7r1C3sjVHGyW1vba&amp;layout=classic&amp;profile=1" width="100%" height="700" frameborder="0" scrolling="no" loading="lazy"></iframe>
       </div>
@@ -84,6 +121,10 @@
         Journée roulante en seconde partie : on économise les jambes, le lendemain s'annonce
         le plus dur du séjour.
       </p>
+      <div class="stage-photos">
+        <figure><img src="photos/valley-haze.jpg" alt="La vallée du Grésivaudan, vue de Chartreuse" loading="lazy" /><figcaption>Vue sur le Grésivaudan</figcaption></figure>
+        <figure><img src="photos/sunny-road.jpg" alt="Direction Grenoble" loading="lazy" /><figcaption>Direction Grenoble</figcaption></figure>
+      </div>
       <div class="komoot-embed stage-embed">
         <iframe src="https://www.komoot.com/tour/3098970138/embed?share_token=a5bTUzqzeSDWlmzSpcOjylxCbZ3XA1EPuEw9tjLP1FzTQDaUyt&amp;layout=classic&amp;profile=1" width="100%" height="700" frameborder="0" scrolling="no" loading="lazy"></iframe>
       </div>
@@ -110,6 +151,12 @@
         marge. Prévoir un point de ravitaillement solide à Bourg-d'Oisans et un autre à
         Saint-Michel-de-Maurienne.
       </p>
+      <div class="stage-photos stage-photos-4">
+        <figure><img src="photos/night-ride.jpg" alt="Départ avant l'aube" loading="lazy" /><figcaption>Départ avant l'aube</figcaption></figure>
+        <figure><img src="photos/alpine-pass.jpg" alt="Sur les hauts plateaux, entre Lautaret et Galibier" loading="lazy" /><figcaption>Entre Lautaret et Galibier</figcaption></figure>
+        <figure><img src="photos/switchback-forest.jpg" alt="Les lacets discrets du col de Sarenne" loading="lazy" /><figcaption>Les lacets du col de Sarenne</figcaption></figure>
+        <figure><img src="photos/hairpin-lake-view.jpg" alt="Descente en lacets vers la vallée" loading="lazy" /><figcaption>Descente en lacets</figcaption></figure>
+      </div>
       <div class="komoot-embed stage-embed">
         <iframe src="https://www.komoot.com/tour/3098970139/embed?share_token=agABWUtei51C2uuO5STkaWiBWsKhT3nEdkVMwfIUPijn22FheL&amp;layout=classic&amp;profile=1" width="100%" height="700" frameborder="0" scrolling="no" loading="lazy"></iframe>
       </div>
@@ -134,6 +181,9 @@
         Jour le plus abordable du séjour, mais les jambes de la veille se feront sentir dans le
         Cormet de Roselend — ne pas hésiter à lever le pied.
       </p>
+      <div class="stage-photos">
+        <figure><img src="photos/lake-roselend.jpg" alt="Le lac de Roselend, joyau du Beaufortain" loading="lazy" /><figcaption>Le lac de Roselend</figcaption></figure>
+      </div>
       <div class="komoot-embed stage-embed">
         <iframe src="https://www.komoot.com/tour/3098970142/embed?share_token=awCO11l4a2wrGL2TF0Da7wg61Kg4kUjnPT217oziUZL2420CUd&amp;layout=classic&amp;profile=1" width="100%" height="700" frameborder="0" scrolling="no" loading="lazy"></iframe>
       </div>
@@ -242,6 +292,7 @@
   <p>Trace GPX — mise à jour le <span id="last-updated"></span></p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

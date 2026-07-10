@@ -1,2 +1,6 @@
 .DS_Store
 node_modules/
+
+# Photos originales non optimisées (gardées en local, pas dans le repo)
+photos/*_o.jpg
+photos/Capture*.png
