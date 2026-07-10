@@ -83,7 +83,7 @@ main {
   margin-bottom: 24px;
 }
 
-.elevation-section, .waypoints-section, .notes-section {
+.elevation-section, .waypoints-section, .notes-section, .stages-section, .cols-section {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -91,10 +91,77 @@ main {
   margin-bottom: 20px;
 }
 
-.elevation-section h2, .waypoints-section h2, .notes-section h2 {
+.elevation-section h2, .waypoints-section h2, .notes-section h2, .stages-section h2, .cols-section h2 {
   margin-top: 0;
   font-size: 1.1rem;
   color: var(--alpine-blue);
+}
+
+.stage {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.stage:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stage:first-of-type {
+  padding-top: 0;
+}
+
+.stage-head h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.stage-meta {
+  margin: 0 0 10px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.stage p {
+  line-height: 1.55;
+  margin: 0 0 10px 0;
+}
+
+.stage-tip {
+  font-style: italic;
+  color: #64748b;
+  margin-bottom: 0 !important;
+}
+
+.stage-3 .stage-meta {
+  color: #b91c1c;
+}
+
+.cols-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cols-table th, .cols-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cols-table th {
+  color: #64748b;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.table-note {
+  margin: 10px 0 0 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
 }
 
 .chart-wrap {
