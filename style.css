@@ -154,8 +154,14 @@ main {
   color: #b91c1c;
 }
 
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .cols-table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
@@ -164,6 +170,18 @@ main {
   text-align: left;
   padding: 8px 10px;
   border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.cols-table td a {
+  color: var(--alpine-blue);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: normal;
+}
+
+.cols-table td a:hover {
+  text-decoration: underline;
 }
 
 .cols-table th {
