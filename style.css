@@ -1,0 +1,148 @@
+:root {
+  --alpine-blue: #1b4965;
+  --alpine-light: #62b6cb;
+  --alpine-sand: #cae9ff;
+  --accent: #ee6c4d;
+  --text: #1f2933;
+  --bg: #f7fafc;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  background: linear-gradient(135deg, var(--alpine-blue), var(--alpine-light));
+  color: white;
+  padding: 28px 20px;
+}
+
+.topbar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.topbar h1 {
+  margin: 0 0 4px 0;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.stat {
+  flex: 1 1 120px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--alpine-blue);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+#map {
+  height: 480px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.elevation-section, .waypoints-section, .notes-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.elevation-section h2, .waypoints-section h2, .notes-section h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: var(--alpine-blue);
+}
+
+.chart-wrap {
+  height: 220px;
+  position: relative;
+}
+
+.waypoints-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.waypoints-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.waypoints-list li:last-child {
+  border-bottom: none;
+}
+
+.waypoints-list .wp-name {
+  font-weight: 600;
+}
+
+.waypoints-list .wp-dist {
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.placeholder-note {
+  color: #64748b;
+  font-style: italic;
+  margin: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  #map { height: 340px; }
+  .topbar h1 { font-size: 1.4rem; }
+}

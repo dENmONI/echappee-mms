@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>L'Échappée M&amp;Ms</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1>L'Échappée M&amp;Ms</h1>
+    <p class="subtitle">Galibier &amp; Madeleine — planification du parcours</p>
+  </div>
+</header>
+
+<main>
+  <section class="stats-bar" id="stats-bar">
+    <div class="stat">
+      <span class="stat-value" id="stat-distance">–</span>
+      <span class="stat-label">km</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-gain">–</span>
+      <span class="stat-label">D+ (m)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-loss">–</span>
+      <span class="stat-label">D- (m)</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-maxalt">–</span>
+      <span class="stat-label">alt. max (m)</span>
+    </div>
+  </section>
+
+  <section id="map"></section>
+
+  <section class="elevation-section">
+    <h2>Profil altimétrique</h2>
+    <div class="chart-wrap">
+      <canvas id="elevation-chart"></canvas>
+    </div>
+  </section>
+
+  <section class="waypoints-section">
+    <h2>Points d'intérêt</h2>
+    <ul id="waypoints-list" class="waypoints-list"></ul>
+  </section>
+
+  <section class="notes-section">
+    <h2>Infos pratiques</h2>
+    <p class="placeholder-note">
+      Étapes, hébergements et logistique à ajouter ici — squelette technique en place,
+      contenu à compléter.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>Trace GPX — mise à jour le <span id="last-updated"></span></p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
