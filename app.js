@@ -139,33 +139,19 @@ function renderOverviewChart(trkpts, cumDist) {
 }
 
 async function init() {
-  const { trkpts, wpts } = await loadGpx(GPX_URL);
+  const { trkpts } = await loadGpx(GPX_URL);
   const cumDist = computeCumulativeDistance(trkpts);
   const stats = computeStats(trkpts);
   const totalDist = cumDist[cumDist.length - 1];
 
   document.getElementById("stat-distance").textContent = totalDist.toFixed(0);
   document.getElementById("stat-gain").textContent = stats.gain.toLocaleString("fr-FR");
-  document.getElementById("stat-loss").textContent = stats.loss.toLocaleString("fr-FR");
   document.getElementById("stat-maxalt").textContent = stats.maxAlt.toLocaleString("fr-FR");
   document.getElementById("last-updated").textContent = new Date().toLocaleDateString("fr-FR");
-
-  const waypointsList = document.getElementById("waypoints-list");
-  wpts.forEach((wp) => {
-    const distAtWp = findNearestWaypointDistance(wp, trkpts, cumDist);
-    const li = document.createElement("li");
-    li.innerHTML = `<span class="wp-name">${wp.name}</span><span class="wp-dist">km ${distAtWp.toFixed(0)}</span>`;
-    waypointsList.appendChild(li);
-  });
 
   renderOverviewChart(trkpts, cumDist);
 }
 
 init().catch((err) => {
   console.error("Erreur de chargement du parcours:", err);
-  const wpSection = document.getElementById("waypoints-list");
-  if (wpSection) {
-    wpSection.innerHTML =
-      '<li style="color:#b91c1c">Impossible de charger la trace GPX. Vérifie que data/route.gpx existe.</li>';
-  }
 });

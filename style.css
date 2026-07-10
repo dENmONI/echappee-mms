@@ -340,6 +340,18 @@ main {
   letter-spacing: 0.03em;
 }
 
+.stars {
+  letter-spacing: 1px;
+}
+
+.star-on {
+  color: #f4a300;
+}
+
+.star-off {
+  color: #d8dee5;
+}
+
 .table-note {
   margin: 10px 0 0 0;
   font-size: 0.8rem;
