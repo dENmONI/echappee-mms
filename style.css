@@ -136,7 +136,18 @@ main {
 .stage-tip {
   font-style: italic;
   color: #64748b;
-  margin-bottom: 0 !important;
+}
+
+.stage-tip:last-child {
+  margin-bottom: 0;
+}
+
+.stage-embed {
+  margin-top: 14px;
+}
+
+.stage-embed:last-child {
+  margin-bottom: 0;
 }
 
 .stage-3 .stage-meta {
