@@ -5,7 +5,7 @@
 const GPX_URL = "data/route.gpx";
 
 // Bornes des 4 jours (km cumulés) et couleur associée à chacun
-const DAY_BOUNDS = [0, 91.7, 210.0, 384.0, 513.6];
+const DAY_BOUNDS = [0, 91.7, 223.4, 384.0, 513.6];
 const DAY_COLORS = ["#1b4965", "#ee6c4d", "#b91c1c", "#2a9d8f"];
 
 // Distance haversine en km entre deux points lat/lon
